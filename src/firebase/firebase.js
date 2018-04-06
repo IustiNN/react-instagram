@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
-var config = {
+
+const config = {
     apiKey: "AIzaSyDQqozvfmcbEx6HCU-ZrgTxXqRdMkTapd0",
     authDomain: "react-instagram-d11f7.firebaseapp.com",
     databaseURL: "https://react-instagram-d11f7.firebaseio.com",
@@ -11,7 +12,9 @@ var config = {
 if (!firebase.apps.length) {
     firebase.initializeApp(config);
 }
+
 const auth = firebase.auth();
+
 export {
     auth,
 };
