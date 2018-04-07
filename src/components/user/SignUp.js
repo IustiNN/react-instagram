@@ -21,8 +21,8 @@ const INITIAL_STATE = {
     email: '',
     password: '',
     passwordConfirmation: '',
-    error: null
-}
+    error: null,
+};
 
 const byPropKey = (propertyName, value) => () => ({
     [propertyName]: value,
