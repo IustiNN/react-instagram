@@ -15,7 +15,6 @@ import LandingPage from './feed/Landing';
 
 import * as routes from '../constants/routes';
 import withAuthentication from './withAuthentication';
-import ChangePassword from './user/ChangePassword';
 
 const App = () => {
   return (
