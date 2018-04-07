@@ -5,10 +5,11 @@ import * as routes from '../../constants/routes';
 const Navigation = ({authUser}) =>
     <div>
         {
-            {authUser} 
+            authUser
             ? <NavigationAuth/>
             : <NavigationDefault/>
         }
+        <p>{authUser && authUser.email}</p>
     </div>
 
 const NavigationAuth = () =>
