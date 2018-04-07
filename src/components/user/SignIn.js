@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { SingUpLink } from './SignUp';
+import { PasswordForgetLink } from './ForgotPassword';
 
 import * as routes from '../../constants/routes';
 
@@ -12,6 +13,7 @@ const SignInPage = ({ history }) => {
         <div>
             <h1>Sing in</h1>
             <SingInForm history={history}></SingInForm>
+            <PasswordForgetLink/>
             <SingUpLink/>
         </div>
     );
