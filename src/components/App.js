@@ -8,12 +8,14 @@ import Navigation from './common/Navigation';
 import SignUpPage from './user/SignUp';
 import SignInPage from './user/SignIn';
 import ForgotPasswordPage from './user/ForgotPassword';
+import ChangePasswordPage from './user/ChangePassword';
 import AccountPage from './user/Account';
 import FeedPage from './feed/Feed';
 import LandingPage from './feed/Landing';
 
 import * as routes from '../constants/routes';
 import withAuthentication from './withAuthentication';
+import ChangePassword from './user/ChangePassword';
 
 const App = () => {
   return (
@@ -38,6 +40,10 @@ const App = () => {
         <Route
           exact path={routes.FORGOT_PASSWORD}
           component={() => <ForgotPasswordPage />}
+        />
+        <Route
+          exact path={routes.CHANGE_PASSWORD}
+          component={() => <ChangePasswordPage />}
         />
         <Route
           exact path={routes.FEED}
