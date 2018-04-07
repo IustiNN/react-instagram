@@ -14,62 +14,44 @@ import FeedPage from './feed/Feed';
 import LandingPage from './feed/Landing';
 
 import * as routes from '../constants/routes';
+import withAuthentication from './withAuthentication';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+const App = () => {
+  return (
+    <Router>
+      <div>
+        <Navigation/>
 
-    this.state = {
-      authUser: null,
-    };
-  }
+        <hr />
 
-  componentDidMount() {
-    firebase.auth.onAuthStateChanged(authUser => {
-      authUser
-        ? this.setState(() => ({ authUser }))
-        : this.setState(() => ({ authUser: null }));
-    });
-  }
-  
-  
-  render () {
-    return (
-      <Router>
-        <div>
-          <Navigation authUser={this.state.authUser} />
-
-          <hr />
-
-          <Route
-            exact path={routes.LANDING}
-            component={() => <LandingPage />}
-          />
-          <Route
-            exact path={routes.SIGN_UP}
-            component={() => <SignUpPage />}
-          />
-          <Route
-            exact path={routes.SIGN_IN}
-            component={() => <SignInPage />}
-          />
-          <Route
-            exact path={routes.FORGOT_PASSWORD}
-            component={() => <ForgotPasswordPage />}
-          />
-          <Route
-            exact path={routes.FEED}
-            component={() => <FeedPage />}
-          />
-          <Route
-            exact path={routes.ACCOUNT}
-            component={() => <AccountPage />}
-          />
-        </div>
-      </Router>
-    )
-  }
+        <Route
+          exact path={routes.LANDING}
+          component={() => <LandingPage />}
+        />
+        <Route
+          exact path={routes.SIGN_UP}
+          component={() => <SignUpPage />}
+        />
+        <Route
+          exact path={routes.SIGN_IN}
+          component={() => <SignInPage />}
+        />
+        <Route
+          exact path={routes.FORGOT_PASSWORD}
+          component={() => <ForgotPasswordPage />}
+        />
+        <Route
+          exact path={routes.FEED}
+          component={() => <FeedPage />}
+        />
+        <Route
+          exact path={routes.ACCOUNT}
+          component={() => <AccountPage />}
+        />
+      </div>
+    </Router>
+  )
 }
 
 
-export default App;
+export default withAuthentication(App);
