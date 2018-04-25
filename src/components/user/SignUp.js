@@ -3,7 +3,7 @@ import {
     Link,
     withRouter
 } from 'react-router-dom';
-import { auth } from '../../firebase'
+import { auth, db } from '../../firebase';
 
 import * as routes from '../../constants/routes';
 
@@ -47,14 +47,15 @@ class SingUpForm extends Component {
 
         auth.doCreateUserWithEmailAndPassword(email, password)
             .then(authUser => {
-                console.log(authUser);
-                // reset the form inputs
-                this.setState(() => ({...INITIAL_STATE}));
-                history.push(routes.FEED);
-            })
-            .catch(error => {
-                this.setState(byPropKey('error', error));
-                console.log(error);
+                // Create a user in your own accessible Firebase Database too
+                db.doCreateUser(username, email)
+                    .then(() => {
+                        this.setState(() => ({ ...INITIAL_STATE }));
+                        history.push(routes.FEED);
+                    })
+                    .catch(error => {
+                        this.setState(byPropKey('error', error));
+                    });
             })
         event.preventDefault();
     }

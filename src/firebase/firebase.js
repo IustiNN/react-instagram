@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import 'firebase/firestore'
 
 const config = {
     apiKey: "AIzaSyDQqozvfmcbEx6HCU-ZrgTxXqRdMkTapd0",
@@ -14,7 +15,10 @@ if (!firebase.apps.length) {
 }
 
 const auth = firebase.auth();
+// Initialize Cloud Firestore through Firebase
+const db = firebase.firestore();
 
 export {
     auth,
+    db
 };

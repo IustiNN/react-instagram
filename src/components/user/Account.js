@@ -1,19 +1,18 @@
 import React from 'react';
-import {
-    withRouter,
-    Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 // import ChangePasswordPage from './ChangePassword';
 // import ForgotPasswordPage from './ForgotPassword';
-import AuthUserContext from '../AuthUserContext';
+import withAuthorization from '../withAuthorization';
+
 
 import * as routes from '../../constants/routes';
 
-const AccountPage = ({ history, authUser }) => {
+const AccountPage = ({ authUser }) => {
     return (
-        <AuthUserContext.Consumer>
+        <div>
             {
-                authUser =>
                 authUser &&
                 <div>
                     Welcome {authUser.email}
@@ -23,8 +22,17 @@ const AccountPage = ({ history, authUser }) => {
                     </ul>
                 </div>
             }
-        </AuthUserContext.Consumer>
+        </div>
     );
 };
 
-export default withRouter(AccountPage);
+const mapStateToProps = (state) => ({
+    authUser: state.sessionState.authUser,
+});
+
+const authCondition = (authUser) => !!authUser;
+
+export default compose(
+    withAuthorization(authCondition),
+    connect(mapStateToProps)
+)(AccountPage);

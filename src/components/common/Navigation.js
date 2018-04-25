@@ -1,18 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { Menu, Dropdown, Image } from 'semantic-ui-react'
 import SingOutButton from '../user/SignOut'
-import AuthUserContext from '../AuthUserContext'
 import * as routes from '../../constants/routes'
 import gravatarUrl from 'gravatar-url';
 const Navigation = ({authUser}) =>
-  <AuthUserContext.Consumer>
-    {
-      authUser => authUser
+  <div>
+      { authUser
         ? <NavigationAuth user={authUser}/>
         : <NavigationDefault/>
-    }
-  </AuthUserContext.Consumer>
+      }
+ </div>
 
 const NavigationAuth = ({user}) =>
   <Menu secondary pointing>
@@ -34,4 +33,9 @@ const NavigationDefault = () =>
         <Menu.Item as={Link} to={routes.LANDING}>Landing</Menu.Item>
     </Menu>
 
-export default Navigation
+
+const mapStateToProps = (state) => ({
+    authUser: state.sessionState.authUser,
+});
+
+export default connect(mapStateToProps)(Navigation);
