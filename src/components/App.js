@@ -4,6 +4,8 @@ import {
   Route 
 } from 'react-router-dom';
 
+import { Container } from 'semantic-ui-react';
+
 import Navigation from './common/Navigation';
 import SignUpPage from './user/SignUp';
 import SignInPage from './user/SignIn';
@@ -21,34 +23,36 @@ const App = () => {
     <Router>
       <div>
         <Navigation/>
-        <Route
-          exact path={routes.LANDING}
-          component={() => <LandingPage />}
-        />
-        <Route
-          exact path={routes.SIGN_UP}
-          component={() => <SignUpPage />}
-        />
-        <Route
-          exact path={routes.SIGN_IN}
-          component={() => <SignInPage />}
-        />
-        <Route
-          exact path={routes.FORGOT_PASSWORD}
-          component={() => <ForgotPasswordPage />}
-        />
-        <Route
-          exact path={routes.CHANGE_PASSWORD}
-          component={() => <ChangePasswordPage />}
-        />
-        <Route
-          exact path={routes.FEED}
-          component={() => <FeedPage />}
-        />
-        <Route
-          exact path={routes.ACCOUNT}
-          component={() => <AccountPage />}
-        />
+        <Container>
+          <Route
+            exact path={routes.LANDING}
+            component={() => <LandingPage />}
+          />
+          <Route
+            exact path={routes.SIGN_UP}
+            component={() => <SignUpPage />}
+          />
+          <Route
+            exact path={routes.SIGN_IN}
+            component={() => <SignInPage />}
+          />
+          <Route
+            exact path={routes.FORGOT_PASSWORD}
+            component={() => <ForgotPasswordPage />}
+          />
+          <Route
+            exact path={routes.CHANGE_PASSWORD}
+            component={() => <ChangePasswordPage />}
+          />
+          <Route
+            exact path={routes.FEED}
+            component={() => <FeedPage />}
+          />
+          <Route
+            exact path={routes.ACCOUNT}
+            component={() => <AccountPage />}
+          />
+        </Container>
       </div>
     </Router>
   )

@@ -17,7 +17,7 @@ const NavigationAuth = ({user}) =>
   <Menu secondary pointing>
         <Menu.Item as={Link} to={routes.FEED}>Feed</Menu.Item>
         <Menu.Menu position="right">
-            <Dropdown trigger={<Image avatar src={gravatarUrl(user.email)}/>}>
+            <Dropdown trigger={<Image avatar src={gravatarUrl(user.email, {default: "retro"})}/>}>
                 <Dropdown.Menu>
                     <Dropdown.Item as={Link} to={routes.ACCOUNT}>Account</Dropdown.Item>
                     <Dropdown.Item as={SingOutButton}></Dropdown.Item>
