@@ -17,10 +17,10 @@ const SignUpPage = ({history}) => {
 };
 
 const INITIAL_STATE = {
-    username: '',
+    // username: '',
     email: '',
     password: '',
-    passwordConfirmation: '',
+    // passwordConfirmation: '',
     error: null,
 };
 
@@ -36,7 +36,7 @@ class SingUpForm extends Component {
     
     onSubmit = (event) => {
         const {
-            username,
+            // username,
             email,
             password
         } = this.state;
@@ -48,7 +48,7 @@ class SingUpForm extends Component {
         auth.doCreateUserWithEmailAndPassword(email, password)
             .then(authUser => {
                 // Create a user in your own accessible Firebase Database too
-                db.doCreateUser(username, email)
+                db.doCreateUser(email)
                     .then(() => {
                         this.setState(() => ({ ...INITIAL_STATE }));
                         history.push(routes.FEED);
@@ -62,26 +62,25 @@ class SingUpForm extends Component {
     
     render () {
         const {
-            username,
+            // username,
             email,
             password,
-            passwordConfirmation,
+            // passwordConfirmation,
             error,
         } = this.state;
 
         const isInvalid =
-            password !== passwordConfirmation ||
             password === '' ||
-            email === '' ||
-            username === '';
+            email === '';
+            // username === '';
 
         return (
             <form onSubmit={this.onSubmit}>
-                <input 
+                {/* <input 
                 value={username} 
                 onChange={event => this.setState(byPropKey('username', event.target.value))}
                 type="text"
-                placeholder="Your name" />
+                placeholder="Your name" /> */}
                 <input 
                 value={email} 
                 onChange={event => this.setState(byPropKey('email', event.target.value))}
@@ -92,12 +91,6 @@ class SingUpForm extends Component {
                 onChange={event => this.setState(byPropKey('password', event.target.value))}
                 type="password"
                 placeholder="Password" />
-                <input 
-                value={passwordConfirmation} 
-                onChange={event => this.setState(byPropKey('passwordConfirmation', event.target.value))}
-                type="password"
-                placeholder="Confirm Password" />
-
                 <button type="submit" disabled={isInvalid}>Sign up</button>
 
                 {error && <p>{error.message}</p>}

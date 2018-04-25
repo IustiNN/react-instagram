@@ -16,9 +16,20 @@ class FeedPage extends Component {
     componentDidMount() {
         const { onSetUsers } = this.props;
 
-        db.onceGetUsers().then(snapshot =>
-            onSetUsers(snapshot.val())
-        );
+        db.onceGetUsers().then(function (querySnapshot) {
+            // console.log(querySnapshot.docs);
+
+            let data = querySnapshot.docs.map(function (documentSnapshot) {
+                return documentSnapshot.data();
+            });
+
+            onSetUsers(data);
+
+            querySnapshot.forEach(function (doc) {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+            });
+        });
         // db.onceGetUsers().then(snapshot =>
         //     this.setState(() => ({ users: snapshot.val() }))
         // );
@@ -41,11 +52,11 @@ class FeedPage extends Component {
 
 const UserList = ({ users }) =>
     <div>
-        <h2>List of Usernames of Users</h2>
+        <h2>List of Emails of Users</h2>
         <p>(Saved on Sign Up in Firebase Database)</p>
 
         {Object.keys(users).map(key =>
-            <div key={key}>{users[key].username}</div>
+            <div key={key}>{users[key].email}</div>
         )}
     </div>
 
