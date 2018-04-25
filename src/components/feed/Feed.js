@@ -3,6 +3,7 @@ import withAuthorization from '../withAuthorization';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { db } from '../../firebase';
+import PostForm from '../posts/PostForm';
 
 class FeedPage extends Component {
     constructor(props) {
@@ -44,6 +45,8 @@ class FeedPage extends Component {
                 <p>The Feed Page is accessible by every signed in user.</p>
 
                 {!!users && <UserList users={users} />}
+
+                <PostForm/>
 
             </div>
         );
