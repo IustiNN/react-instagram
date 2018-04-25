@@ -45,7 +45,7 @@ class ResetPasswordForm extends Component {
                 // reset the form inputs and redirect to feed
                 this.setState(() => ({ ...INITIAL_STATE }));
                 console.log('We have sent you an email!');
-                history.push(routes.FEED);
+                history.push(routes.LANDING);
             }, (error) => {
                 this.setState(byPropKey('error', error));
                 console.log(error);
