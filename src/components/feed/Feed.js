@@ -11,40 +11,54 @@ class FeedPage extends Component {
 
         this.state = {
             users: null,
+            posts: null
         };
     }
 
     componentDidMount() {
-        const { onSetUsers } = this.props;
+        const { onSetUsers, onSetPosts } = this.props;
 
         db.onceGetUsers().then(function (querySnapshot) {
             // console.log(querySnapshot.docs);
 
-            let data = querySnapshot.docs.map(function (documentSnapshot) {
+            let usersData = querySnapshot.docs.map(function (documentSnapshot) {
                 return documentSnapshot.data();
             });
 
-            onSetUsers(data);
+            onSetUsers(usersData);
 
             querySnapshot.forEach(function (doc) {
                 // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
             });
         });
-        // db.onceGetUsers().then(snapshot =>
-        //     this.setState(() => ({ users: snapshot.val() }))
-        // );
+       
+
+        db.doGetFeed().then(function (querySnapshot) {
+            // console.log(querySnapshot.docs);
+
+            let postsData = querySnapshot.docs.map(function (documentSnapshot) {
+                return documentSnapshot.data();
+            });
+
+            onSetPosts(postsData);
+
+            querySnapshot.forEach(function (doc) {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+            });
+        });
     }
 
     render() {
-        const { users } = this.props;
+        const { users, posts } = this.props;
 
         return (
             <div>
                 <h1>Feed</h1>
                 <p>The Feed Page is accessible by every signed in user.</p>
 
-                {!!users && <UserList users={users} />}
+                {!!users && <UserList users={users} posts={posts} />}
 
                 <PostForm/>
 
@@ -53,7 +67,7 @@ class FeedPage extends Component {
     }
 }
 
-const UserList = ({ users }) =>
+const UserList = ({ users, posts }) =>
     <div>
         <h2>List of Emails of Users</h2>
         <p>(Saved on Sign Up in Firebase Database)</p>
@@ -61,14 +75,22 @@ const UserList = ({ users }) =>
         {Object.keys(users).map(key =>
             <div key={key}>{users[key].email}</div>
         )}
+
+        <hr/>
+
+        {Object.keys(posts).map(key =>
+            <div key={key}>{posts[key].description}</div>
+        )}
     </div>
 
 const mapStateToProps = (state) => ({
     users: state.userState.users,
+    posts: state.postState.posts,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     onSetUsers: (users) => dispatch({ type: 'USERS_SET', users }),
+    onSetPosts: (posts) => dispatch({ type: 'POSTS_SET', posts }),
 });
 
 
