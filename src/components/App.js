@@ -21,9 +21,6 @@ const App = () => {
     <Router>
       <div>
         <Navigation/>
-
-        <hr />
-
         <Route
           exact path={routes.LANDING}
           component={() => <LandingPage />}

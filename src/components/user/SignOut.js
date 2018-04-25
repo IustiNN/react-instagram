@@ -1,11 +1,10 @@
 import React from 'react'
+import { Dropdown } from 'semantic-ui-react'
 import { auth } from '../../firebase';
 
 const SingOutButton = () => {
     return (
-        <div>
-            <button type="button" onClick={auth.doSignOut}>Log out</button>
-        </div>
+        <Dropdown.Item text='Log out' onClick={auth.doSignOut} />
     )
 }
 
