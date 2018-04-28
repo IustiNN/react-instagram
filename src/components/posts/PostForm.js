@@ -8,8 +8,9 @@ import { auth, db } from '../../firebase';
 import * as routes from '../../constants/routes';
 
 const INITIAL_STATE = {
-  // media: '',
+  media: '',
   description: '',
+  uploadedAt: null,
   error: null,
 };
 
@@ -25,11 +26,16 @@ class PostForm extends Component {
 
   onSubmit = (event) => {
     const {
-      // media,
+      media,
       description,
     } = this.state;
 
-    db.doCreatePost(description)
+    const postData = {
+      media,
+      description,
+      uploadedAt: new Date()
+    }
+    db.doCreatePost(postData)
       .then(post => {
         console.log(post);
         // Create a user in your own accessible Firebase Database too
@@ -43,7 +49,7 @@ class PostForm extends Component {
   render() {
     const {
       description,
-      // media,
+      media,
       error,
     } = this.state;
 
@@ -53,11 +59,11 @@ class PostForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        {/* <input 
-                value={username} 
-                onChange={event => this.setState(byPropKey('username', event.target.value))}
+        <input 
+                value={media} 
+                onChange={event => this.setState(byPropKey('media', event.target.value))}
                 type="text"
-                placeholder="Your name" /> */}
+                placeholder="Url image" />
         <input
           value={description}
           onChange={event => this.setState(byPropKey('description', event.target.value))}

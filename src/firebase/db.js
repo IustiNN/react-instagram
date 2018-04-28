@@ -14,9 +14,11 @@ export const onceGetUsers = () =>
 // Other Entity APIs ...
 
 // Add post
-export const doCreatePost = (description) =>
+export const doCreatePost = (postData) =>
     db.collection("posts").add({
-        description,
+        media: postData.media,
+        description: postData.description,
+        uploadedAt: postData.uploadedAt
     })
 
 // Get posts

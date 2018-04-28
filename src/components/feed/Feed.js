@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { db } from '../../firebase';
 import PostForm from '../posts/PostForm';
+import PostList from '../posts/PostList';
 
 class FeedPage extends Component {
     constructor(props) {
@@ -40,6 +41,7 @@ class FeedPage extends Component {
             let postsData = querySnapshot.docs.map(function (documentSnapshot) {
                 return documentSnapshot.data();
             });
+            console.log(postsData);
 
             onSetPosts(postsData);
 
@@ -62,6 +64,8 @@ class FeedPage extends Component {
 
                 <PostForm/>
 
+                <PostList posts={posts}/>
+
             </div>
         );
     }
@@ -77,10 +81,6 @@ const UserList = ({ users, posts }) =>
         )}
 
         <hr/>
-
-        {Object.keys(posts).map(key =>
-            <div key={key}>{posts[key].description}</div>
-        )}
     </div>
 
 const mapStateToProps = (state) => ({
